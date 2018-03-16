@@ -1,12 +1,26 @@
 
 module.exports = function(bp) {
   bp.middlewares.load()
+
   bp.hear({
     type: 'postback',
     text: 'GET_STARTED'
   }, event => {
     bp.messenger.sendText(event.user.id, 'Say you loasdad mad lkamsdkla ds makmdakdmaskd masdlk masdm ')
   })
+
+
+
+
+
+
+  bp.hear({'rasa_nlu.intent.name': 'restaurant_search'}, (event) => {
+	bp.messenger.sendText(event.user.id, 'Looking for the nearest restaurant to fill your cravings!')
+  })
+
+
+
+
 
  var regex = /remind me to (.+)/
 
