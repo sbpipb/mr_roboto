@@ -6,11 +6,11 @@
   "dependencies": {
     "@botpress/analytics": "^2.2.7",
     "botpress": "1.x",
-    "botpress-dialog": "^1.0.17",
     "botpress-hitl": "^1.0.10",
     "botpress-messenger": "^2.2.11",
     "botpress-rasa_nlu": "^1.1.0",
-    "botpress-web": "1.x"
+    "botpress-web": "1.x",
+    "lodash": "^4.17.5"
   },
   "scripts": {
     "start": "botpress start",

@@ -1,19 +1,25 @@
-welcome: # this is the #welcome bloc referenced in index.js
-  - typing: true
-    text: # Picks one randomly
-      # - Hey there!
-      - Hello {{user.first_name}} -- {{user.last_name}}
-      # - Good day :)
-  # - text: This is just a regular Hello Worldddd, I don't do anything ;)
-    # typing: 2s
-  # - text: Make sure to check out the 'index.js' file to see how I work
-  #   typing: true
-  # - wait: 5s
-  - text: You can say goodbye now
-    typing: 1s
-
-goodbye:
-  - text: au revoir!
-  - text: You are leaving because of reason {{reason}}
+debug:
+  - text: "helllo world from {{platform}}"
+welcome:
+  - text: Hello!
     typing: true
-  - Hope to see you back again soon! # if no other properties, you can just send a strings
+  - text: Welcome! My name is Penny, and I am your assistant.
+    typing: 1.3s
+  - text: How are you doing? Please use the buttons below!
+    wait: 2.3s
+    typing: true
+    quick_replies:
+      - <QR_GOOD> Good!
+      - <QR_BAD> Bad 😔
+
+pay_loans:
+  - text: You don't have existing loans.
+pay_bills:
+  - text: What biller would you like to pay for?
+transfer_credits:
+  - text: 'Which account would you like to draw transfer from?'
+check_balance:
+  - text: Which account would you like to check?
+
+fallback:
+  - te! too dumb, Sorry I don't understand

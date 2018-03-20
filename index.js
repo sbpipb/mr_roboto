@@ -1,99 +1,50 @@
+const _ = require('lodash')
 
 module.exports = function(bp) {
   bp.middlewares.load()
+  const utterances = {
+    good: /good|great|fine|ok|excellent|fantastic/i,
+    bad: /bad|sad|not good|not great|bof/i,
+    stop: /stop|cancel|abort/i
+  }
 
-  bp.hear({
-    type: 'postback',
-    text: 'GET_STARTED'
-  }, event => {
-    bp.messenger.sendText(event.user.id, 'Say you loasdad mad lkamsdkla ds makmdakdmaskd masdlk masdm ')
+  const variants = {
+    feeling_good: () => _.sample(['Glad to hear that!', 'Fantastic!', 'Yay!']),
+    feeling_bad: () => _.sample(['So sorry to hear that', ':('])
+  }
+
+  bp.hear(/hi/i, (event) => {
+    // bp.reply(event)
+    let plat = event.platform
+    event.reply('#debug', { platform: plat })
+  })
+
+  bp.hear(/good/i, (event, next) => {
+    event.reply(event.user.id, variants.feeling_good)
+  })
+
+  bp.hear(/bad/i, (event, next) => {
+    event.reply(event.user.id, variants.feeling_bad)
+  })
+
+  bp.hear({'rasa_nlu.intent.name': 'pay_bills'}, (event) => {
+    bp.reply(event.user.id, '#pay_bills')
+  })
+
+  bp.hear({'rasa_nlu.intent.name': 'pay_loans'}, (event) => {
+    bp.reply(event.user.id, '#pay_loans')
   })
 
 
 
-
-
-
-  bp.hear({'rasa_nlu.intent.name': 'restaurant_search'}, (event) => {
-	bp.messenger.sendText(event.user.id, 'Looking for the nearest restaurant to fill your cravings!')
+  bp.hear({'rasa_nlu.intent.name': 'check_balance'}, (event) => {
+    // bp.reply(event.user.id, '#check_balance')
+    event.reply('#check_balance')
+    // bp.messenger.sendText(event.user.id, '#check_balance')
   })
 
-
-
-
-
- var regex = /remind me to (.+)/
-
- bp.hear({
-   text: regex
- }, event => {
-   var matches = regex.exec(event.text)
-
-   bp.db.kvs.get('reminders').then(reminders => {
-     if (!reminders) {
-       reminders = []
-     }
-
-     var reminder = matches[1]
-     bp.messenger.sendText(event.user.id, "i'll remind you to " + reminder)
-     reminders.push(reminder)
-     bp.db.kvs.set('reminders', reminders)
-   })
-
-
- })
-
- bp.hear({
-   text: 'tasks'
- }, event => {
-   // var list = bp.db.kvs.get('reminders')
-   bp.db.kvs.get('reminders').then(reminders => {
-
-     if (!reminders) {
-       reminders = []
-       bp.messenger.sendText(event.user.id, "No Reminders for today:")
-     }else{
-       bp.messenger.sendText(event.user.id, "Reminders for today:")
-     }
-
-     reminders.forEach( function(reminder) {
-      bp.messenger.sendText(event.user.id, reminder, {waitDelivery: true})
-     })
-
-   })
-
- })
-
- bp.hear({
-   text: 'delete tasks'
- }, event => {
-   bp.db.kvs.set('reminders', null).then(reminders => {
-     bp.messenger.sendText(event.user.id, "Deleting reminders", {waitDelivery: true})
-   })
- })
-
-  bp.hear({
-    type: 'message',
-    text: 'helloworld'},
-    // text: /.+/},
-    event => {
-      // bp.messenger.sendText(event.user.id, event.text)
-      event.reply('#welcome')
-    }
-  )
-
-  // bp.hear(/GET_STARTED|hello|hi|test|hey|holla/i, (event, next) => {
-  //   event.reply('#welcome') // See the file `content.yml` to see the block
-  // })
-
-  // You can also pass a matcher object to better filter events
-  // bp.hear({
-  //   type: /message|text/i,
-  //   text: /exit|bye|goodbye|quit|done|leave|stop/i
-  // }, (event, next) => {
-  //   event.reply('#goodbye', {
-  //     // You can pass data to the UMM bloc!
-  //     reason: 'unknown'
-  //   })
-  // })
+  bp.hear({'rasa_nlu.intent.name': 'transfer_credits'}, (event) => {
+    // bp.reply(event.user.id, '#transfer_credits')
+    event.reply('#transfer_credits')
+  })
 }
