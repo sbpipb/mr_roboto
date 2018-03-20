@@ -30,8 +30,9 @@ module.exports = function(bp) {
     let platform = event.platform
     if (platform == 'facebook') {
       event.reply('#bye_facebook', {name: event.user.first_name})
+    } else {
+      event.reply('#bye', { user: event.user.name })
     }
-    event.reply('#bye', { user: event.user.name })
   })
 
 
@@ -80,6 +81,14 @@ module.exports = function(bp) {
         event.reply('#check_balance', { account_type: primary_account.type,
                                         account_id: primary_account.account_name,
                                         balance: primary_account.balance})
+
+        if(secondary_account) {
+          event.reply('#check_balance', { account_type: secondary_account.type,
+                                          account_id: secondary_account.account_name,
+                                          balance: secondary_account.balance})
+
+        }
+
       } else{
         event.reply('#check_account_failed')
       }
