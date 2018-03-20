@@ -1,3 +1,6 @@
+bye_facebook:
+  - text: "Bye {{name}}! Don't forget to like us on facebook https://goo.gl/76NGsF"
+  
 debug_facebook:
   - text: 'Add us on facebook {{name}}'
 debug:
@@ -17,8 +20,13 @@ welcome:
 pay_loans:
   - text: You don't have existing loans.
 
+pay_bills_start:
+  - text: What biller would you like to pay for?
+
 pay_bills:
   - text: What biller would you like to pay for?
+
+
 
 transfer_credits:
   - text: 'Which account would you like to draw transfer from?'

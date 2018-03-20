@@ -1,4 +1,4 @@
-const _ = require('lodash')
+// const _ = require('lodash')
 const request = require('request');
 
 module.exports = function(bp) {
@@ -16,16 +16,20 @@ module.exports = function(bp) {
 
   bp.hear(/hi/i, (event) => {
     // bp.reply(event)
-    let plat = event.platform
+    let platform = event.platform
     event.reply('#welcome')
-    event.reply('#debug', { platform: plat})
+    event.reply('#debug', { platform: platform})
 
-    if (plat == 'facebook') {
-      event.reply('#debug_facebook', {name: event.user.id})
+    if (platform == 'facebook') {
+      event.reply('#debug_facebook', {name: event.user.first_name})
     }
   })
 
-  bp.hear(/bye/i, (event) => {
+  bp.hear(/bye|paalam/i, (event) => {
+    let platform = event.platform
+    if (platform == 'facebook') {
+      event.reply('#bye_facebook', {name: event.user.first_name})
+    }
     event.reply('#bye', { user: event.user.name })
   })
 
@@ -39,7 +43,7 @@ module.exports = function(bp) {
   // })
 
   bp.hear({'rasa_nlu.intent.name': 'pay_bills'}, (event) => {
-    event.reply('#pay_bills', { user: event.user.id})
+    event.reply('#pay_bills_start', { user: event.user.id})
   })
 
   bp.hear({'rasa_nlu.intent.name': 'pay_loans'}, (event) => {
@@ -62,12 +66,13 @@ module.exports = function(bp) {
 
     event.reply('#check_balance_start')
 
-    request('http://www.mocky.io/v2/5ab0c0972e00006800e8b755', function (error, response, body) {
+    request('http://www.mocky.io/v2/5ab0d2272e0000080ae8b7aa?mocky-delay=100ms', function (error, response, body) {
       let account_list = JSON.parse(body).accounts;
 
       let primary_account = account_list[0]
       let secondary_account = account_list[1]
       let number_of_accounts = account_list.length
+
 
       if (!!!number_of_accounts){
         event.reply('#account_list_summary', { number_of_accounts: number_of_accounts })
