@@ -1,3 +1,5 @@
+debug_facebook:
+  - text: 'Add us on facebook {{name}}'
 debug:
   - text: "helllo world from {{platform}}"
 welcome:
@@ -14,12 +16,44 @@ welcome:
 
 pay_loans:
   - text: You don't have existing loans.
+
 pay_bills:
   - text: What biller would you like to pay for?
+
 transfer_credits:
   - text: 'Which account would you like to draw transfer from?'
+
+check_account_start:
+  - text: 'Let me check your existing accounts. Hold on'
+    # typing: true
+
+check_account:
+  - text: 'Let me check your existing accounts. Hold on'
+    typing: true
+
+check_balance_start:
+  - text: Checking account list.
+    # typing: true
+
 check_balance:
-  - text: Which account would you like to check?
+  - text: "Your {{account_type}} account, [{{account_id}}], has a balance of PHP{{balance}}"
+    typing: 1.5s
+
+check_account_failed:
+  - text: "We didn't find any account under your name :("
+    typing: true
+  - text: "You can create a new account by clicking this link http://goo.gl/RuuQGP"
+
+account_list_summary:
+  - text: "You have {{number_of_accounts}} accounts."
 
 fallback:
   - te! too dumb, Sorry I don't understand
+
+bye:
+  - text:
+    - See you around!
+    - Bye! have a great day!
+    - I hate goodbyes, til next time!
+    - "Bye! {{user}}"
+    typing: 1s
