@@ -17,8 +17,9 @@ module.exports = function(bp) {
   bp.hear(/hi/i, (event) => {
     // bp.reply(event)
     let platform = event.platform
+
     event.reply('#welcome')
-    event.reply('#debug', { platform: platform})
+    // event.reply('#debug', { platform: platform})
 
     if (platform == 'facebook') {
       event.reply('#debug_facebook', {name: event.user.first_name})
@@ -74,7 +75,7 @@ module.exports = function(bp) {
       let number_of_accounts = account_list.length
 
 
-      if (!!!number_of_accounts){
+      if (!!number_of_accounts){
         event.reply('#account_list_summary', { number_of_accounts: number_of_accounts })
         event.reply('#check_balance', { account_type: primary_account.type,
                                         account_id: primary_account.account_name,

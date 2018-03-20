@@ -1,8 +1,10 @@
 bye_facebook:
   - text: "Bye {{name}}! Don't forget to like us on facebook https://goo.gl/76NGsF"
-  
+
 debug_facebook:
   - text: 'Add us on facebook {{name}}'
+    wait: 4s
+    
 debug:
   - text: "helllo world from {{platform}}"
 welcome:
